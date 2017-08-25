@@ -1,5 +1,6 @@
 credentials.p
 .DS_Store
+constants.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

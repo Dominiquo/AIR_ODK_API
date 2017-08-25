@@ -2,7 +2,10 @@ from flask import Flask
 from flask_restful import Resource, Api
 from flask_restful import reqparse
 from flask.ext.mysql import MySQL
-from tools import utils, accessDB
+from tools import utils, accessDB, handleTyping
+import constants
+import pandas as pd
+
 
 
 mysql = MySQL()
@@ -54,10 +57,36 @@ class SelectColumnsWhere(Resource):
 				query = "SELECT %s FROM %s;" % (_column_names, _tablename)
 
 			data = execute_query(query)
-			return utils.respondSelectColumns(data, _column_names)
+			columns = _column_names.split(',')
+
+			return utils.respondSelectColumns(data, columns)
+
 
 		except Exception as e:
 			return {'error': str(e)}
+
+
+class DashboardData(Resource):
+	def post(self):
+		try:
+			parser = reqparse.RequestParser()
+			parser.add_argument('blank', type=str, help='place holder for later filtering')
+			args = parser.parse_args()
+
+			_holder_arg = args['blank']
+
+			query = constants.get_foundation_query_sql()
+			data = execute_query(query)
+			column_names = constants.get_fields_list()
+
+			data_dict = utils.respondSelectColumns(data, column_names)
+			
+
+			return handleTyping.make_json_compatible(data_dict)
+
+		except Exception as e:
+			return {'error': str(e)}
+
 
 
 
@@ -74,6 +103,7 @@ def execute_query(query):
 
 api.add_resource(GetTableInfo, '/GetTableInfo')
 api.add_resource(SelectColumnsWhere, '/SelectColumnsWhere')
+api.add_resource(DashboardData, '/DashboardData')
 
 if __name__ == '__main__':
     app.run(debug=True)

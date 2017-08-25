@@ -22,14 +22,11 @@ def respondTableData(query_data):
 		return response_dict
 			
 	except Exception as e:
-		print e
-		# TODO: pass up exception to return non 200 response
-		return None
+		raise(e)
 
 
-def respondSelectColumns(response_data, column_names):
+def respondSelectColumns(response_data, columns):
 	try:
-		columns = column_names.split(',')
 		response_dict = {c_name:[] for c_name in columns}
 
 		if len(response_data) == 0:
@@ -41,9 +38,7 @@ def respondSelectColumns(response_data, column_names):
 
 		return response_dict
 	except Exception as e:
-		print e
-		# TODO: pass up exception to return non 200 response
-		return None
+		raise(e)
 
 
 		
