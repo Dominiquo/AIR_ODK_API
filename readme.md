@@ -52,8 +52,4 @@ More specific call for our uses. This needs to be updated when we get more infor
 
 As of right now, I didn't have too much involvement with the APIs current use cases. This means that the API is extremely general and mostly provides a template for developing onwards. I am familiar with `pandas` so I use the `pandas` structure as a way of jsonifying data and on the other side of the request, `pandas` can also be used to reconstruct and restructure the data for more complex function application. 
 
-I plan on mocking the api to test response typing because the jsonify method used by `flask_restful` doesn't seem to have all of the capabilities of other jsonify functions. Along with this, I want to try to expand the SQL statement function generating library. I have yet to fully utilize `pypika` because of the early generalization, but I think it would be extremely beneficial to continue with this library to have a more wholistic language for creating safe queries. 
-
-
-Send a 
- 
+I plan on mocking the api to test response typing because the jsonify method used by `flask_restful` doesn't seem to have all of the capabilities of other jsonify functions. Along with this, I want to try to expand the SQL statement function generating library. I have yet to fully utilize `pypika` because of the early generalization, but I think it would be extremely beneficial to continue with this library to have a more wholistic language for creating safe queries.
